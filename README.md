@@ -40,4 +40,35 @@ For commands executed on local machines, there was prepared `Makefile`, using wh
 
 ## Application
 
-TODO
+Basic LLM app was built using tutorials:
+- [Build a basic LLM chat app](https://docs.streamlit.io/develop/tutorials/llms/build-conversational-apps)
+- [Build an LLM app using LangChain](https://docs.streamlit.io/develop/tutorials/llms/llm-quickstart)
+
+1. Install dependencies:
+```bash
+cd app
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+2. Define OpenAI API key:
+```bash
+mkdir -p .streamlit
+echo 'OPENAI_API_KEY = "YOUR_API_KEY"' > .streamlit/secrets.toml
+```
+3. Run echo bot:
+```bash
+streamlit run echo_bot.py
+```
+4. Run simple chat:
+```bash
+streamlit run simple_chat.py
+```
+5. Run ChatGPT-like app:
+```bash
+streamlit run chat_gpt_like.py
+```
+6. Run playground:
+```bash
+streamlit run playground.py
+```
