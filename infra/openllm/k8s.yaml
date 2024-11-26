@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openllm-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openllm
+  template:
+    metadata:
+      labels:
+        app: openllm
+    spec:
+      containers:
+      - name: openllm
+        image: openllm-image:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            cpu: 1
+            memory: 4Gi
+          requests:
+            cpu: 500m
+            memory: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openllm-service
+spec:
+  selector:
+    app: openllm
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
+  type: LoadBalancer
