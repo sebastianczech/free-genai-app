@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - name: chroma
-        image: chroma-image:latest
+        image: docker.io/library/chroma-service:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 8000
         resources:
