@@ -11,13 +11,13 @@ config:
 	kind load docker-image chroma-service:latest --name home-lab
 	kubectl apply -f infra/openllm/k8s.yaml
 	kubectl apply -f infra/chroma/k8s.yaml
-	kubectl label node home-lab-control-plane node.kubernetes.io/exclude-from-external-load-balancers-
 
 unconfig:
 	kubectl delete -f infra/openllm/k8s.yaml
 	kubectl delete -f infra/chroma/k8s.yaml
 
 lb:
+	kubectl label node home-lab-control-plane node.kubernetes.io/exclude-from-external-load-balancers-
 	docker run --rm --network kind -v /var/run/docker.sock:/var/run/docker.sock load-balancer-k8s
 
 clean:
@@ -31,3 +31,9 @@ status:
 	kind get clusters
 	kubectl get nodes
 	kubectl get all
+
+debug_chrome:
+	docker run --name chroma-service --rm -it chroma-service:latest bash
+
+debug_openllm:
+	docker run --name openllm-service --rm -it openllm-service:latest bash
