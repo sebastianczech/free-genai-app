@@ -12,6 +12,8 @@ spec:
       labels:
         app: chroma
     spec:
+      nodeSelector:
+        tier: chroma
       containers:
       - name: chroma
         image: docker.io/library/chroma-service:latest
@@ -37,4 +39,5 @@ spec:
   - protocol: TCP
     port: 8000
     targetPort: 8000
-  type: LoadBalancer
+    nodePort: 30800
+  type: NodePort # LoadBalancer

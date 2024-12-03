@@ -12,6 +12,8 @@ spec:
       labels:
         app: openllm
     spec:
+      nodeSelector:
+        tier: openllm
       containers:
       - name: openllm
         image: docker.io/library/openllm-service:latest
@@ -37,4 +39,5 @@ spec:
   - protocol: TCP
     port: 3000
     targetPort: 3000
-  type: LoadBalancer
+    nodePort: 30300
+  type: NodePort # LoadBalancer
