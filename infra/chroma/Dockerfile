@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY infra/chroma .
 
-CMD ["chroma", "run", "--path", "./db"]
+CMD ["chroma", "run", "--path", "./db", "--host", "0.0.0.0"]
