@@ -41,3 +41,17 @@ spec:
     targetPort: 8000
     nodePort: 30800
   type: NodePort # LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chroma-service-lb
+spec:
+  selector:
+    app: chroma
+  ports:
+  - protocol: TCP
+    port: 8010
+    targetPort: 8000
+    nodePort: 30810
+  type: LoadBalancer

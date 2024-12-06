@@ -41,3 +41,17 @@ spec:
     targetPort: 3000
     nodePort: 30300
   type: NodePort # LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openllm-service-lb
+spec:
+  selector:
+    app: openllm
+  ports:
+  - protocol: TCP
+    port: 3010
+    targetPort: 3000
+    nodePort: 30310
+  type: LoadBalancer
