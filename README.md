@@ -12,7 +12,12 @@ In repository there were used multiple components:
 - [OpenLLM](https://github.com/bentoml/OpenLLM) for open-source LLMs
 - [Chroma](https://docs.trychroma.com/) as open-source vector database
 - [LangChain](https://python.langchain.com/docs/introduction/) as a framework for developing application
-- [Streamlit](https://docs.streamlit.io/) for powerful data application
+- UI:
+  - [Streamlit](https://docs.streamlit.io/) for powerful data application
+  - [Gradio](https://www.gradio.app/)
+  - [Dash](https://dash.plotly.com/)
+  - [Panel](https://panel.holoviz.org/)
+  - [Anvil](https://anvil.works/)
 
 ## Infrastructure
 
