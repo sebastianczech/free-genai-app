@@ -18,7 +18,7 @@ unconfig:
 
 lb:
 	kubectl label node home-lab-control-plane node.kubernetes.io/exclude-from-external-load-balancers-
-	docker run --rm --network kind -v /var/run/docker.sock:/var/run/docker.sock load-balancer-k8s
+	docker run -p 8010:30810 -p 3010:30310 --rm --network kind -v /var/run/docker.sock:/var/run/docker.sock load-balancer-k8s
 
 clean:
 	kind delete cluster -n home-lab
@@ -31,6 +31,22 @@ status:
 	kind get clusters
 	kubectl get nodes
 	kubectl get all
+
+debug_k8s_control_plane:
+	docker exec -it home-lab-control-plane bash
+
+debug_k8s_worker1:
+	docker exec -it home-lab-worker bash
+
+debug_k8s_worker2:
+	docker exec -it home-lab-worker2 bash
+
+debug_lb:
+	docker exec -it home-lab-control-plane curl 172.18.0.7:8010
+	docker exec -it home-lab-control-plane curl 172.18.0.6:3010
+
+debug_pods:
+	kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot
 
 debug_chrome:
 	docker run --name chroma-service --rm -it chroma-service:latest bash
