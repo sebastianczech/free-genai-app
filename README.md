@@ -23,15 +23,31 @@ In repository there were used multiple components:
 
 1. Create Kubernetes cluster using kind:
 ```bash
-TODO
+kind create cluster --config infra/k8s/multi-node.yaml --name home-lab
 ```
 2. Build Docker images for OpenLLM and Chroma:
 ```bash
-TODO
+docker buildx build --tag openllm-service:latest --file infra/openllm/Dockerfile .
+docker buildx build --tag chroma-service:latest --file infra/chroma/Dockerfile .
+docker buildx build --tag load-balancer-k8s:latest --file infra/lb/Dockerfile .
 ```
 3. Deploy OpenLLM and Chroma services in local Kubernetes cluster:
 ```bash
-TODO
+kind load docker-image openllm-service:latest --name home-lab
+kind load docker-image chroma-service:latest --name home-lab
+
+kubectl apply -f infra/openllm/k8s.yaml
+kubectl apply -f infra/chroma/k8s.yaml
+```
+4. Clean environment if required:
+```bash
+kubectl delete -f infra/openllm/k8s.yaml
+kubectl delete -f infra/chroma/k8s.yaml
+
+kind delete cluster -n home-lab
+
+docker image prune --all --force
+docker system prune --all --force
 ```
 
 ## CI/CD
@@ -61,19 +77,23 @@ pip install -r requirements.txt
 mkdir -p .streamlit
 echo 'OPENAI_API_KEY = "YOUR_API_KEY"' > .streamlit/secrets.toml
 ```
-3. Run echo bot:
+3. Run Streamlit echo bot:
 ```bash
 streamlit run echo_bot.py
 ```
-4. Run simple chat:
+4. Run Streamlit simple chat:
 ```bash
 streamlit run simple_chat.py
 ```
-5. Run ChatGPT-like app:
+5. Run Streamlit ChatGPT-like app and connect to OpenLLM running in local Kubernetes cluster:
 ```bash
 streamlit run chat_gpt_like.py
 ```
-6. Run playground:
+6. Run Streamlit playground:
 ```bash
 streamlit run playground.py
+```
+7. Run ChromaDB client and connect to Chroma DB running in local Kubernetes cluster:
+```bash
+python use_chromadb_client.py
 ```
