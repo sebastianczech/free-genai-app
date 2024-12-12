@@ -32,6 +32,10 @@ status:
 	kubectl get nodes
 	kubectl get all
 
+check:
+	pre-commit run --all-files
+	kubeconform -summary -skip Cluster infra
+
 debug_k8s_control_plane:
 	docker exec -it home-lab-control-plane bash
 

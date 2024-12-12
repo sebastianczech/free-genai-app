@@ -5,6 +5,10 @@
 Before using code from that repository, please install tools:
 - [Docker Desktop](https://docs.docker.com/desktop/) for running containers locally
 - [kind](https://kind.sigs.k8s.io/) for running local Kubernetes
+- [pre-commit](https://pre-commit.com/)
+- [gitleaks](https://github.com/gitleaks/gitleaks)
+- [checkov](https://www.checkov.io/)
+- [kubeconform](https://github.com/yannh/kubeconform)
 
 ## Tech stack
 
