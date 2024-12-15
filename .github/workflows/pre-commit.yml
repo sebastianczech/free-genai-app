@@ -1,0 +1,75 @@
+name: Pre-Commit
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  TERRAFORM_DOCS_VERSION: v0.18.0
+  TFLINT_VERSION: v0.52.0
+
+permissions:
+  actions: none
+  attestations: none
+  checks: none
+  contents: read
+  deployments: none
+  id-token: none
+  issues: none
+  discussions: none
+  packages: none
+  pages: none
+  pull-requests: none
+  repository-projects: none
+  security-events: none
+  statuses: none
+
+jobs:
+  # currently there are defined only some selected scanners:
+  # https://github.com/sebastianczech/terraform-aws-free-serverless-modules/settings/variables/actions
+  # to see all possible scanners, please visit:
+  # https://github.com/super-linter/super-linter
+  superLinter:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: read
+      statuses: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Super-linter
+        uses: super-linter/super-linter@v7.2.0
+        env:
+          VALIDATE_CHECKOV: true
+          VALIDATE_GITLEAKS: true
+          VALIDATE_YAML: true
+          VALIDATE_KUBERNETES_KUBECONFORM: true
+          VALIDATE_PYTHON: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pre-commit
+        run: python3 -m pip install pre-commit
+
+      - name: Run pre-commit
+        run: pre-commit run --all-files
