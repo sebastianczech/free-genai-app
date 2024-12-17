@@ -1,9 +1,5 @@
 version: 2
 updates:
-  - package-ecosystem: "docker"
-    directory: "/infra"
-    schedule:
-      interval: "weekly"
   - package-ecosystem: "pip"
     directory: "/app"
     schedule:
