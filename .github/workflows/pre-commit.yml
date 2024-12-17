@@ -52,7 +52,7 @@ jobs:
           VALIDATE_GITLEAKS: true
           VALIDATE_YAML: true
           VALIDATE_KUBERNETES_KUBECONFORM: true
-          KUBERNETES_KUBECONFORM_OPTIONS: -summary -skip Cluster infra
+          KUBERNETES_KUBECONFORM_OPTIONS: "--ignore-missing-schemas"
           VALIDATE_PYTHON: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
