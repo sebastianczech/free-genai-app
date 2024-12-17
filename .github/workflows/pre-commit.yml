@@ -46,13 +46,13 @@ jobs:
           fetch-depth: 0
 
       - name: Super-linter
-        uses: super-linter/super-linter@v7.2.0
+        uses: super-linter/super-linter@v7.2.1
         env:
           VALIDATE_CHECKOV: true
           VALIDATE_GITLEAKS: true
           VALIDATE_YAML: true
           VALIDATE_KUBERNETES_KUBECONFORM: true
-          KUBERNETES_KUBECONFORM_OPTIONS: "--ignore-missing-schemas"
+          KUBERNETES_KUBECONFORM_OPTIONS: -ignore-missing-schemas
           VALIDATE_PYTHON: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
