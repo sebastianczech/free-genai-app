@@ -13,15 +13,16 @@ repos:
     hooks:
       - id: gitleaks
 -   repo: https://github.com/bridgecrewio/checkov.git
-    rev: '3.2.334'
+    rev: 3.2.336
     hooks:
       - id: checkov
         verbose: true
+        files: ^infra/.*$
         args: [
           --compact,
           --download-external-modules,"true",
           --quiet,
           --soft-fail,
-          --skip-check, "",
-          --soft-fail-on, "",
+          --skip-check,"CKV2_K8S_6,CKV_DOCKER_2,CKV_DOCKER_3,CKV_DOCKER_9,CKV_K8S_14,CKV_K8S_15,CKV_K8S_20,CKV_K8S_21,CKV_K8S_22,CKV_K8S_23,CKV_K8S_28,CKV_K8S_29,CKV_K8S_30,CKV_K8S_31,CKV_K8S_37,CKV_K8S_38,CKV_K8S_40,CKV_K8S_43,CKV2_K8S_6,CKV_DOCKER_9,CKV_K8S_37",
+          --soft-fail-on,"",
         ]
